@@ -1,0 +1,11 @@
+# Проверено в разработке (ядро и PDF): pandas, numpy, openpyxl, reportlab, python-dotenv.
+pandas==3.0.6
+numpy==2.5.4
+openpyxl==3.1.5
+reportlab==5.0.1
+python-dotenv==1.2.4
+# Веб-слой в среде разработки НЕ запускался. Замените на версии, которые у вас уже работают в CashFlow (pip freeze):
+fastapi
+uvicorn
+python-multipart
+httpx
