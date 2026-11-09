@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Профит селлера — прибыль по артикулам WB и Ozon</title>
+<style>
+:root{--bg:#0a0a0a;--card:#151515;--line:#2b2b2b;--tx:#ececec;--mu:#9b9b9b;--a:#ffb020;--a2:#ff7a00;--neg:#ff5c5c;--pos:#4cd07d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--a)}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:20px;background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+main{max-width:1150px;margin:0 auto;padding:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+h2{margin:0 0 8px;font-size:18px}h3{margin:14px 0 6px;font-size:15px;color:var(--a)}
+.mu{color:var(--mu);font-size:13px}.neg{color:var(--neg)}.pos{color:var(--pos)}
+button,.btn{background:linear-gradient(90deg,var(--a),var(--a2));color:#111;border:0;border-radius:9px;padding:9px 14px;font-weight:700;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block}
+button.sec,.btn.sec{background:transparent;color:var(--a);border:1px solid var(--a)}
+button:disabled{opacity:.35;cursor:not-allowed}
+input,select{background:#0e0e0e;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:14px;max-width:100%}
+label{display:block;margin:8px 0 3px;font-size:13px;color:var(--mu)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.kpi{background:#101010;border:1px solid var(--line);border-radius:10px;padding:10px}
+.kpi b{display:block;font-size:21px;margin-top:2px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+.tabs button{background:#1c1c1c;color:var(--tx);white-space:nowrap}
+.tabs button.on{background:linear-gradient(90deg,var(--a),var(--a2));color:#111}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{color:var(--a);cursor:pointer;position:sticky;top:0;background:var(--card)}
+td:first-child,th:first-child,td.l,th.l{text-align:left}
+tr.cl:hover{background:#1d1d1d;cursor:pointer}
+.bar{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--a),var(--a2));min-width:2px}
+.row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}.row .n{width:180px;flex:none}.row .v{width:120px;text-align:right;flex:none}.row .b{flex:1}
+.tag{display:inline-block;padding:1px 8px;border-radius:9px;font-size:12px}
+.t-loss{background:#4a1a1a;color:var(--neg)}.t-low{background:#4a3a10;color:var(--a)}.t-ok{background:#143a24;color:var(--pos)}.t-nocost{background:#333;color:#ccc}
+.warn{border-left:3px solid var(--a);padding:6px 10px;margin:6px 0;background:#1a1608;border-radius:0 8px 8px 0}
+.warn.error{border-color:var(--neg);background:#1d0e0e}.warn.info{border-color:#5a8;background:#0e1a14}
+.lossc{border:1px solid #4a1a1a;border-radius:10px;padding:10px;margin:8px 0;background:#150d0d}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;padding:16px;overflow:auto;z-index:9}
+.modal.on{display:flex}.modal .in{background:var(--card);border:1px solid var(--line);border-radius:12px;max-width:1000px;width:100%;padding:16px}
+.chat{height:320px;overflow-y:auto;background:#0e0e0e;border:1px solid var(--line);border-radius:10px;padding:10px}
+.m{margin:6px 0;padding:8px 10px;border-radius:10px;max-width:90%;white-space:pre-wrap}.m.u{background:#2a2410;margin-left:auto}.m.a{background:#1c1c1c}
+.demo{background:#2a2410;border:1px solid var(--a);padding:8px 12px;border-radius:9px;margin-bottom:12px}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:10px 0}.chk input{margin-top:3px}
+footer{text-align:center;color:var(--mu);font-size:12px;padding:18px}
+@media(max-width:600px){.row .n{width:110px}.row .v{width:90px}main{padding:8px}}
+@media print{header,.tabs,button,footer,#up{display:none}body{background:#fff;color:#000}.card{border-color:#ccc;background:#fff}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Профит селлера</div>
+  <div>
+    <button class="sec" id="bDemo">Демо</button>
+    <button class="sec" id="bPolicy">Политика</button>
+    <button class="sec" id="bDel">Удалить мои данные</button>
+  </div>
+</header>
+<main>
+<div class="card" id="up">
+  <h2>Загрузите отчёты</h2>
+  <p class="mu">Нужны отчёты самих площадок (не банковская выписка) и таблица себестоимости. Подключение к кабинету не требуется.</p>
+  <div class="grid">
+    <div>
+      <label>Отчёты WB / Ozon (.xlsx, .csv, .json), можно несколько</label>
+      <input type="file" id="fRep" multiple accept=".xlsx,.xlsm,.csv,.txt,.json">
+      <label>Таблица себестоимости (.csv, .xlsx)</label>
+      <input type="file" id="fCost" accept=".xlsx,.xlsm,.csv,.txt">
+      <div class="mu" style="margin-top:6px"><a href="/api/template/costs.csv">Скачать шаблон себестоимости</a>. Пример строк в нём удалите.</div>
+    </div>
+    <div>
+      <label>Налоговый режим</label>
+      <select id="sTax"><option value="usn6">УСН «Доходы» (6%)</option><option value="usn15">УСН «Доходы минус расходы» (15%)</option><option value="npd">Самозанятый, НПД (4%)</option><option value="none">Не считать налог</option></select>
+      <label>Своя ставка, % (необязательно, например региональная)</label>
+      <input id="sRate" inputmode="decimal" placeholder="по умолчанию">
+      <label>База дохода</label>
+      <select id="sBase"><option value="revenue">Выручка по отчётам</option><option value="payout">Сумма к получению от площадки</option></select>
+      <label>Общие расходы (хранение, приёмка…) распределять</label>
+      <select id="sAlloc"><option value="revenue">по выручке</option><option value="units">по числу штук</option><option value="none">не распределять</option></select>
+    </div>
+  </div>
+  <div class="chk"><input type="checkbox" id="cons"><label style="margin:0;color:var(--tx)">Согласен на обработку загруженных данных по <a href="#" id="lnkPol">политике конфиденциальности</a>. Не загружаю данные третьих лиц без их согласия.</label></div>
+  <button id="bGo" disabled>Рассчитать</button> <span class="mu" id="upMsg"></span>
+</div>
+
+<div id="res" style="display:none">
+  <div id="demoBar" class="demo" style="display:none">Это демо на вымышленных данных. Ваши файлы не использовались.</div>
+  <div class="tabs" id="tabs"></div>
+  <div id="tab"></div>
+</div>
+</main>
+<footer>Расчёты ориентировочные и не заменяют бухгалтера. Сервис не подключается к кабинетам площадок. <a href="#" id="lnkPol2">Политика конфиденциальности</a></footer>
+
+<div class="modal" id="mod"><div class="in"><div style="text-align:right"><button class="sec" onclick="closeM()">Закрыть</button></div><div id="modC"></div></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0});
+const fm=x=>x==null?'—':nf.format(x);
+const fp=x=>x==null?'—':(x*100).toFixed(0)+'%';
+const cls=x=>x<0?'neg':'';
+let UID=localStorage.getItem('uid');
+if(!UID){UID=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2)+'0000000000');localStorage.setItem('uid',UID)}
+let DEMO=0,A=null,TAB='sum',SORT={k:'profit_direct',d:1},FILT='',PLAT='';
+const TABS=[['sum','Сводка'],['art','Артикулы'],['loss','Убыточные'],['tax','Налоги'],['pay','Выплаты'],['warn','Данные'],['chat','Чат'],['how','Как считали']];
+
+async function api(path,opt={}){
+  opt.headers=Object.assign({'X-User-Id':UID},opt.headers||{});
+  const r=await fetch(path+(path.includes('?')?'&':'?')+'demo='+DEMO,opt);
+  if(!r.ok){let m='Ошибка '+r.status;try{const j=await r.json();m=j.detail||m}catch(e){}throw new Error(m)}
+  return r;
+}
+function upd(){$('#bGo').disabled=!($('#cons').checked&&($('#fRep').files.length||$('#fCost').files.length))}
+['cons','fRep','fCost'].forEach(i=>$('#'+i).addEventListener('change',upd));
+
+$('#bGo').onclick=async()=>{
+  const fd=new FormData();
+  for(const f of $('#fRep').files)fd.append('reports',f);
+  if($('#fCost').files[0])fd.append('costs',$('#fCost').files[0]);
+  fd.append('consent','1');fd.append('tax_mode',$('#sTax').value);fd.append('tax_rate',$('#sRate').value);
+  fd.append('income_base',$('#sBase').value);fd.append('alloc',$('#sAlloc').value);
+  $('#upMsg').textContent='Считаю…';$('#bGo').disabled=true;DEMO=0;
+  try{const r=await api('/api/upload',{method:'POST',body:fd});show(await r.json());$('#upMsg').textContent=''}
+  catch(e){$('#upMsg').innerHTML='<span class="neg">'+esc(e.message)+'</span>'}
+  upd();
+};
+$('#bDemo').onclick=async()=>{DEMO=1;try{const r=await api('/api/demo',{method:'POST'});show(await r.json())}catch(e){alert(e.message)}};
+$('#bDel').onclick=async()=>{if(!confirm('Удалить все ваши загруженные данные с сервера?'))return;
+  try{await api('/api/data',{method:'DELETE'});A=null;$('#res').style.display='none';alert('Данные удалены.')}catch(e){alert(e.message)}};
+
+function show(a){A=a;$('#res').style.display='block';$('#demoBar').style.display=(a.meta&&a.meta.demo)?'block':'none';
+  if(a.empty){$('#tabs').innerHTML='';$('#tab').innerHTML='<div class="card">'+esc((a.warnings[0]||{}).text||'Нет данных')+'</div>';return}
+  const nw=a.warnings.filter(w=>w.level!='info').length;
+  $('#tabs').innerHTML=TABS.map(t=>`<button data-t="${t[0]}" class="${t[0]==TAB?'on':''}">${t[1]}${t[0]=='warn'&&nw?' ('+nw+')':''}</button>`).join('');
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{TAB=b.dataset.t;show(A)});
+  const f={sum,art,loss,tax:taxT,pay,warn:warnT,chat,how}[TAB];$('#tab').innerHTML='';f($('#tab'));
+  window.scrollTo({top:$('#res').offsetTop-10});
+}
+function tagS(s){const m={loss:'убыток',low:'малая маржа',ok:'ок',nocost:'нет себест.'};return `<span class="tag t-${s}">${m[s]}</span>`}
+
+function sum(el){
+  const t=A.totals,L=A.labels;
+  let h=`<div class="grid"><div class="kpi"><span class="mu">Выручка (продажи − возвраты)</span><b>${fm(t.revenue)} ₽</b></div>
+  <div class="kpi"><span class="mu">Прибыль до налога</span><b class="${cls(t.profit_before_tax)}">${fm(t.profit_before_tax)} ₽</b><span class="mu">маржа ${fp(t.margin)}</span></div>
+  <div class="kpi"><span class="mu">Налог (ориентир.)</span><b>${fm(t.tax)} ₽</b><span class="mu">${esc(A.tax.name)}, ${esc(A.tax.rate)}%</span></div>
+  <div class="kpi"><span class="mu">Прибыль после налога</span><b class="${cls(t.profit_after_tax)}">${fm(t.profit_after_tax)} ₽</b></div></div>`;
+  h+='<div class="card" style="margin-top:12px"><h2>Куда уходит выручка</h2>';
+  const items=['commission','acquiring','logistics','return_fees','penalty','storage','ads','other'].map(k=>[L[k],t[k]]).concat([['Себестоимость проданного',t.cogs]]);
+  const mx=Math.max(...items.map(i=>Math.abs(i[1])),1);
+  items.forEach(i=>{h+=`<div class="row"><span class="n">${esc(i[0])}</span><span class="b"><div class="bar" style="width:${Math.abs(i[1])/mx*100}%"></div></span><span class="v">${fm(i[1])} ₽</span></div>`});
+  h+=`<div class="row"><span class="n"><b>Прибыль до налога</b></span><span class="b"></span><span class="v ${cls(t.profit_before_tax)}"><b>${fm(t.profit_before_tax)} ₽</b></span></div></div>`;
+  h+='<div class="card"><h2>Выводы</h2>'+A.insights.map(i=>`<p style="margin:6px 0">• ${esc(i)}</p>`).join('')+'</div>';
+  h+=`<a class="btn" href="#" id="aPdf">Скачать PDF</a> <a class="btn sec" href="#" id="aCsv">Таблица CSV</a>`;
+  el.innerHTML=h;
+  $('#aPdf').onclick=e=>{e.preventDefault();dl('/api/report.pdf','profit_report.pdf')};
+  $('#aCsv').onclick=e=>{e.preventDefault();dl('/api/export.csv','profit_by_article.csv')};
+}
+async function dl(p,n){try{const r=await api(p);const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=n;a.click();URL.revokeObjectURL(u)}catch(e){alert(e.message)}}
+
+function art(el){
+  let rows=A.articles.filter(r=>(!PLAT||r.platform==PLAT)&&(!FILT||(r.article+' '+r.name).toLowerCase().includes(FILT)));
+  rows.sort((a,b)=>{const x=a[SORT.k],y=b[SORT.k];return (typeof x=='string'?x.localeCompare(y):(x??-1e18)-(y??-1e18))*SORT.d});
+  const cols=[['platform','Пл.'],['article','Артикул'],['qty_sold','Прод.'],['return_rate','Возвр.%'],['revenue','Выручка'],['commission','Комиссия'],['logistics','Логистика'],['ads','Реклама'],['penalty','Штрафы'],['cogs','Себест.'],['profit_direct','Прибыль'],['profit_alloc','С общими'],['margin','Маржа'],['status','Статус']];
+  let h=`<div class="card"><input id="q" placeholder="Поиск по артикулу" value="${esc(FILT)}"> <select id="pf"><option value="">Все площадки</option><option ${PLAT=='WB'?'selected':''}>WB</option><option ${PLAT=='OZON'?'selected':''}>OZON</option></select>
+  <span class="mu"> Нажмите на строку, чтобы увидеть исходные строки отчёта.</span><div class="tw" style="max-height:70vh;margin-top:8px"><table><thead><tr>${cols.map(c=>`<th data-k="${c[0]}" class="${c[0]=='article'||c[0]=='platform'?'l':''}">${c[1]}${SORT.k==c[0]?(SORT.d>0?' ▲':' ▼'):''}</th>`).join('')}</tr></thead><tbody>`;
+  rows.slice(0,500).forEach((r,i)=>{h+=`<tr class="cl" data-i="${i}"><td>${esc(r.platform)}</td><td class="l">${esc(r.article)}</td><td>${fm(r.qty_sold)}</td><td>${fm(r.return_rate)}</td><td>${fm(r.revenue)}</td><td>${fm(r.commission+r.acquiring)}</td><td>${fm(r.logistics)}</td><td>${fm(r.ads)}</td><td>${fm(r.penalty)}</td><td>${fm(r.cogs)}</td><td class="${cls(r.profit_direct)}">${fm(r.profit_direct)}</td><td class="${cls(r.profit_alloc)}">${fm(r.profit_alloc)}</td><td>${fp(r.margin)}</td><td>${tagS(r.status)}</td></tr>`});
+  h+='</tbody></table></div></div>';el.innerHTML=h;
+  $('#q').oninput=e=>{FILT=e.target.value.toLowerCase();art(el);const q=$('#q');q.focus();q.setSelectionRange(q.value.length,q.value.length)};
+  $('#pf').onchange=e=>{PLAT=e.target.value;art(el)};
+  el.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;SORT=SORT.k==k?{k,d:-SORT.d}:{k,d:1};art(el)});
+  el.querySelectorAll('tr.cl').forEach(tr=>tr.onclick=()=>drill(rows[+tr.dataset.i]));
+}
+async function drill(r){
+  $('#modC').innerHTML='<p>Загрузка…</p>';$('#mod').classList.add('on');
+  let h=`<h2>${esc(r.platform)} · ${esc(r.article)}</h2><p class="mu">${esc(r.name)}</p>`;
+  h+=`<div class="tw"><table><tr><td class="l">Выручка (продажи ${fm(r.sales_gross)} − возвраты ${fm(r.refunds)})</td><td>${fm(r.revenue)}</td></tr>
+  <tr><td class="l">− Комиссия / эквайринг</td><td>${fm(r.commission)} / ${fm(r.acquiring)}</td></tr><tr><td class="l">− Логистика / обработка возвратов</td><td>${fm(r.logistics)} / ${fm(r.return_fees)}</td></tr>
+  <tr><td class="l">− Штрафы / реклама / хранение / прочее по артикулу</td><td>${fm(r.penalty)} / ${fm(r.ads)} / ${fm(r.storage)} / ${fm(r.other)}</td></tr>
+  <tr><td class="l">− Себестоимость: (${r.cost==null?'нет':fm(r.cost)} + упак. ${fm(r.packaging)} + проч. ${fm(r.other_cost)}) × ${fm(r.net_units)} шт.</td><td>${fm(r.cogs)}</td></tr>
+  <tr><td class="l"><b>Прибыль (прямая)</b></td><td class="${cls(r.profit_direct)}"><b>${fm(r.profit_direct)}</b></td></tr>
+  <tr><td class="l">− доля общих расходов</td><td>${fm(r.alloc)}</td></tr><tr><td class="l">− налог (ориентир.)</td><td>${fm(r.tax_est)}</td></tr></table></div>`;
+  if(r.explain)h+=`<div class="lossc">${esc(r.explain)}</div>`;
+  try{const rows=await (await api('/api/rows?platform='+encodeURIComponent(r.platform)+'&article='+encodeURIComponent(r.article))).json();
+    h+=`<h3>Исходные строки (${rows.length}${rows.length>=1000?', показаны первые 1000':''})</h3><div class="tw" style="max-height:40vh"><table><thead><tr><th class="l">Дата</th><th class="l">Тип</th><th class="l">Заказ</th><th>Выручка</th><th>Комис.</th><th>Экв.</th><th>Логист.</th><th>Возвр.</th><th>Штраф</th><th>Хран.</th><th>Реклама</th><th>Проч.</th><th class="l">Файл</th><th>Стр.</th></tr></thead><tbody>`+
+    rows.map(x=>`<tr><td class="l">${esc(x.date)}</td><td class="l">${esc(x.op_type)}</td><td class="l">${esc(x.order_id)}</td><td>${fm(x.revenue)}</td><td>${fm(x.commission)}</td><td>${fm(x.acquiring)}</td><td>${fm(x.logistics)}</td><td>${fm(x.return_fees)}</td><td>${fm(x.penalty)}</td><td>${fm(x.storage)}</td><td>${fm(x.ads)}</td><td>${fm(x.other)}</td><td class="l">${esc(x.src_file)}</td><td>${esc(x.src_row)}</td></tr>`).join('')+'</tbody></table></div>';
+  }catch(e){h+='<p class="neg">'+esc(e.message)+'</p>'}
+  $('#modC').innerHTML=h;
+}
+function closeM(){$('#mod').classList.remove('on')}
+
+function loss(el){
+  const L=A.articles.filter(r=>r.status=='loss'),Lo=A.articles.filter(r=>r.status=='low'),N=A.articles.filter(r=>r.status=='nocost'),LA=A.articles.filter(r=>r.loss_after_alloc);
+  let h=`<div class="card"><h2>Убыточные артикулы: ${L.length}</h2>`+(L.length?L.map(r=>`<div class="lossc">${esc(r.explain)}</div>`).join(''):'<p class="mu">Нет.</p>')+'</div>';
+  h+=`<div class="card"><h2>Малая маржа (ниже ${esc(A.meta.settings.low_margin_pct)}%): ${Lo.length}</h2>`+Lo.map(r=>`<p style="margin:6px 0">• ${esc(r.explain)}</p>`).join('')+'</div>';
+  if(LA.length)h+=`<div class="card"><h2>В плюсе, но в минусе с общими расходами: ${LA.length}</h2><p class="mu">Хранение, приёмка и подобное без артикула распределено ${esc(A.meta.settings.alloc=='units'?'по штукам':A.meta.settings.alloc=='none'?'(не распределялось)':'по выручке')}.</p><p>${LA.map(r=>esc(r.platform+' '+r.article)).join(', ')}</p></div>`;
+  if(N.length)h+=`<div class="card"><h2>Нет себестоимости: ${N.length}</h2><p>${N.map(r=>esc(r.platform+' '+r.article)).join(', ')}</p></div>`;
+  el.innerHTML=h;
+}
+function taxT(el){
+  const t=A.tax,s=A.meta.settings;
+  el.innerHTML=`<div class="card"><h2>Ориентировочный налог</h2>
+  <label>Режим</label><select id="tm">${[['usn6','УСН «Доходы»'],['usn15','УСН «Доходы минус расходы»'],['npd','Самозанятый (НПД)'],['none','Не считать']].map(o=>`<option value="${o[0]}" ${s.tax_mode==o[0]?'selected':''}>${o[1]}</option>`).join('')}</select>
+  <label>Ставка, %</label><input id="tr" value="${esc(s.tax_rate)}" inputmode="decimal">
+  <label>База дохода</label><select id="tb"><option value="revenue" ${s.income_base=='revenue'?'selected':''}>Выручка по отчётам</option><option value="payout" ${s.income_base=='payout'?'selected':''}>К получению от площадки</option></select>
+  <label>Порог малой маржи, %</label><input id="tl" value="${esc(s.low_margin_pct)}" inputmode="decimal"><br><br><button id="tg">Пересчитать</button>
+  <div class="grid" style="margin-top:12px"><div class="kpi"><span class="mu">База дохода</span><b>${fm(t.income)} ₽</b></div><div class="kpi"><span class="mu">Расходы (для УСН 15%)</span><b>${fm(t.expenses)} ₽</b></div><div class="kpi"><span class="mu">Налог за период, ориентир.</span><b>${fm(t.tax)} ₽</b></div></div>
+  ${t.min_tax!=null?`<p class="mu">Минимальный налог 1%: ${fm(t.min_tax)} ₽ (сравнивается по итогам года).</p>`:''}
+  <h3>На что опирался расчёт и чего он не учитывает</h3>${t.notes.map(n=>`<div class="warn">${esc(n)}</div>`).join('')}</div>`;
+  $('#tg').onclick=async()=>{try{const r=await api('/api/settings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tax_mode:$('#tm').value,tax_rate:$('#tr').value,income_base:$('#tb').value,low_margin_pct:$('#tl').value,alloc:s.alloc})});show(await r.json())}catch(e){alert(e.message)}};
+}
+function pay(el){
+  let h=`<div class="card"><h2>Выплаты по отчётам</h2><p class="mu">${esc(A.payouts_note)}</p><div class="tw"><table><thead><tr><th class="l">Отчёт</th><th class="l">Период</th><th>Ожидается, ₽</th><th>Получено, ₽</th><th>Разница</th></tr></thead><tbody>`;
+  A.payouts.forEach((p,i)=>{h+=`<tr><td class="l">${esc(p.label)}</td><td class="l">${esc(p.date_from)} — ${esc(p.date_to)}</td><td>${fm(p.expected)}</td><td><input data-i="${i}" style="width:110px" inputmode="decimal" value="${p.actual==null?'':esc(p.actual)}" placeholder="ввести"></td><td class="${p.diff==null?'':(Math.abs(p.diff)>1?'neg':'pos')}">${p.diff==null?'—':fm(p.diff)}</td></tr>`});
+  h+='</tbody></table></div></div>';el.innerHTML=h;
+  el.querySelectorAll('input').forEach(inp=>inp.onchange=async()=>{const p=A.payouts[+inp.dataset.i];
+    try{const r=await api('/api/payouts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({platform:p.platform,key:p.key,amount:inp.value})});show(await r.json())}catch(e){alert(e.message)}});
+}
+function warnT(el){
+  const w=A.warnings;
+  el.innerHTML='<div class="card"><h2>Что нужно знать о ваших данных</h2>'+(w.length?w.map(x=>`<div class="warn ${esc(x.level)}">${esc(x.text)}</div>`).join(''):'<p class="mu">Замечаний нет.</p>')+`</div><div class="card"><h3>Файлы</h3><p class="mu">${A.meta.files.map(esc).join(', ')}. Строк операций: ${A.meta.rows}.</p></div>`;
+}
+let HIST=[];
+function chat(el){
+  el.innerHTML=`<div class="card"><h2>Чат-помощник</h2><p class="mu">Отвечает по вашим цифрам. В GigaChat передаются итоги и список артикулов (без исходных файлов). Ответы могут содержать ошибки, проверяйте.</p><div class="chat" id="cb"></div>
+  <div style="display:flex;gap:6px;margin-top:8px"><input id="cq" style="flex:1" maxlength="1000" placeholder="Например: почему убыточен самый худший артикул?"><button id="cs">Спросить</button></div></div>`;
+  const cb=$('#cb');HIST.forEach(m=>add(m.role=='user'?'u':'a',m.content));
+  function add(c,t){const d=document.createElement('div');d.className='m '+c;d.textContent=t;cb.appendChild(d);cb.scrollTop=cb.scrollHeight}
+  async function send(){const q=$('#cq').value.trim();if(!q)return;$('#cq').value='';add('u',q);
+    try{const r=await api('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q,history:HIST.slice(-6)})});const j=await r.json();
+      HIST.push({role:'user',content:q},{role:'assistant',content:j.answer});add('a',j.answer)}catch(e){add('a','Ошибка: '+e.message)}}
+  $('#cs').onclick=send;$('#cq').onkeydown=e=>{if(e.key=='Enter')send()};
+}
+function how(el){el.innerHTML='<div class="card"><h2>Как считали</h2>'+A.methodology.map(m=>`<p>• ${esc(m)}</p>`).join('')+'</div>'}
+
+const POLICY=`<h2>Политика конфиденциальности</h2>
+<p class="mu">Черновик. Заполните данные в [квадратных скобках] и проверьте у юриста до публикации.</p>
+<h3>1. Оператор</h3><p>[ФИО], [ИП/физическое лицо], [ИНН], контакты: [e-mail]. Сайт: [домен].</p>
+<h3>2. Какие данные обрабатываются</h3><p>Случайный идентификатор браузера (хранится в localStorage вашего устройства); содержимое загруженных файлов, нужное для расчёта: артикулы, наименования товаров, номера заказов/отправлений, даты и суммы операций, ваша таблица себестоимости; выбранные настройки; суммы выплат, которые вы вводите вручную. Остальные колонки файлов (в том числе возможные данные покупателей) не сохраняются. Содержимое переписки в чате не сохраняется на сервере.</p>
+<h3>3. Цели</h3><p>Расчёт прибыли по артикулам, поиск убыточных позиций, ориентировочный расчёт налогов, ответы чат-помощника, формирование PDF.</p>
+<h3>4. Кому передаются данные</h3><p>Хостинг: [название хостинга, Москва, РФ]. Для чат-помощника в GigaChat (ПАО «Сбербанк») передаются агрегированные итоги и список артикулов с суммами, а также ваш вопрос. Исходные файлы не передаются. Иным лицам данные не передаются, кроме случаев, предусмотренных законом.</p>
+<h3>5. Где и как долго хранятся</h3><p>Данные хранятся на сервере в Российской Федерации в течение [30] дней с последнего обращения, затем удаляются автоматически. Вы можете удалить их сразу кнопкой «Удалить мои данные». Копии базы хранятся в зашифрованном виде не дольше [7] дней.</p>
+<h3>6. Меры защиты</h3><p>Передача по HTTPS, доступ к серверу ограничен, резервные копии шифруются. Абсолютную защиту от утечек гарантировать невозможно.</p>
+<h3>7. Ваши права</h3><p>Вы можете запросить сведения об обработке, исправление или удаление данных, отозвать согласие. Для запроса по идентификатору: ваш идентификатор <code id="myUid"></code>; напишите на [e-mail].</p>
+<h3>8. Чего сервис не делает</h3><p>Не подключается к вашему кабинету на площадках, не хранит ключи доступа, не даёт налоговых или юридических консультаций; расчёты ориентировочные. Не загружайте данные третьих лиц без их согласия.</p>`;
+function pol(e){e&&e.preventDefault();$('#modC').innerHTML=POLICY;$('#myUid').textContent=UID;$('#mod').classList.add('on')}
+['bPolicy','lnkPol','lnkPol2'].forEach(i=>$('#'+i).onclick=pol);
+document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
+(async()=>{try{const r=await api('/api/analysis');const a=await r.json();if(!a.empty)show(a)}catch(e){}})();
+</script>
+</body>
+</html>
