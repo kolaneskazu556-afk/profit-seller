@@ -5,60 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Профит селлера — прибыль по артикулам WB и Ozon</title>
 <style>
-:root{--bg:#0a0a0a;--card:#151515;--line:#2b2b2b;--tx:#ececec;--mu:#9b9b9b;--a:#ffb020;--a2:#ff7a00;--neg:#ff5c5c;--pos:#4cd07d}
+:root{--bg:#07080b;--card:rgba(255,255,255,.045);--line:rgba(255,255,255,.10);--tx:#f2f3f5;--mu:#8d93a1;--a:#ffb938;--a2:#ff7a1a;--neg:#ff6b6b;--pos:#3ddc97;--inp:#0c0e13;--th:#14171e;--sh:0 12px 34px rgba(0,0,0,.4);--ink:#1a1100;
+--bgi:radial-gradient(900px 520px at 88% -8%,rgba(255,140,30,.20),transparent 60%),radial-gradient(700px 420px at -8% 6%,rgba(255,190,60,.10),transparent 60%)}
+[data-theme=light]{--bg:#f4f5f8;--card:#ffffff;--line:#e3e6ec;--tx:#14171d;--mu:#667085;--a:#d97300;--a2:#ff6a00;--neg:#d92d20;--pos:#12a05c;--inp:#fff;--th:#f2f4f7;--sh:0 8px 24px rgba(16,24,40,.08);--ink:#fff;
+--bgi:radial-gradient(900px 500px at 90% -10%,rgba(255,150,40,.16),transparent 60%)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-a{color:var(--a)}
-header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
-.logo{font-weight:800;font-size:20px;background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
-main{max-width:1150px;margin:0 auto;padding:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
-h2{margin:0 0 8px;font-size:18px}h3{margin:14px 0 6px;font-size:15px;color:var(--a)}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bgi),var(--bg);background-attachment:fixed;color:var(--tx);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--a);text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 20px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.2px}
+.lg{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink);font-size:18px;box-shadow:0 6px 16px rgba(255,122,26,.35)}
+main{max-width:1180px;margin:0 auto;padding:22px 16px 10px}
+.hero{padding:18px 4px 22px}.hero h1{margin:0 0 8px;font-size:clamp(24px,4.2vw,38px);line-height:1.15;letter-spacing:-.8px}
+.hero h1 span{background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--mu);max-width:680px;font-size:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);backdrop-filter:blur(10px)}
+h2{margin:0 0 10px;font-size:19px;letter-spacing:-.3px}h3{margin:18px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--a)}
 .mu{color:var(--mu);font-size:13px}.neg{color:var(--neg)}.pos{color:var(--pos)}
-button,.btn{background:linear-gradient(90deg,var(--a),var(--a2));color:#111;border:0;border-radius:9px;padding:9px 14px;font-weight:700;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block}
-button.sec,.btn.sec{background:transparent;color:var(--a);border:1px solid var(--a)}
-button:disabled{opacity:.35;cursor:not-allowed}
-input,select{background:#0e0e0e;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:14px;max-width:100%}
-label{display:block;margin:8px 0 3px;font-size:13px;color:var(--mu)}
-.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.kpi{background:#101010;border:1px solid var(--line);border-radius:10px;padding:10px}
-.kpi b{display:block;font-size:21px;margin-top:2px}
-.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
-.tabs button{background:#1c1c1c;color:var(--tx);white-space:nowrap}
-.tabs button.on{background:linear-gradient(90deg,var(--a),var(--a2));color:#111}
-.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}
-th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-th{color:var(--a);cursor:pointer;position:sticky;top:0;background:var(--card)}
+button,.btn{background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink);border:0;border-radius:11px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:14px;display:inline-block;box-shadow:0 6px 18px rgba(255,122,26,.28);transition:transform .12s,box-shadow .12s,opacity .12s}
+button:hover:not(:disabled),.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(255,122,26,.35);text-decoration:none}
+button.sec,.btn.sec{background:transparent;color:var(--tx);border:1px solid var(--line);box-shadow:none}
+button.sec:hover:not(:disabled),.btn.sec:hover{border-color:var(--a);color:var(--a);box-shadow:none}
+button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+input,select{background:var(--inp);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;max-width:100%;outline:0;transition:border-color .12s}
+input:focus,select:focus{border-color:var(--a)}
+input[type=file]{width:100%;padding:9px;border-style:dashed}
+label{display:block;margin:12px 0 5px;font-size:12px;color:var(--mu);font-weight:600}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh)}
+.kpi .mu{font-size:12px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.kpi b{display:block;font-size:28px;margin:6px 0 2px;letter-spacing:-.8px;font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:5px;margin-bottom:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;width:max-content;max-width:100%}
+.tabs button{background:transparent;color:var(--mu);box-shadow:none;padding:8px 14px;border-radius:10px;white-space:nowrap}
+.tabs button:hover{color:var(--tx);transform:none;box-shadow:none}
+.tabs button.on{background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink)}
+.tw{overflow-x:auto;border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--mu);cursor:pointer;position:sticky;top:0;background:var(--th);user-select:none}
+th:hover{color:var(--a)}
 td:first-child,th:first-child,td.l,th.l{text-align:left}
-tr.cl:hover{background:#1d1d1d;cursor:pointer}
-.bar{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--a),var(--a2));min-width:2px}
-.row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13px}.row .n{width:180px;flex:none}.row .v{width:120px;text-align:right;flex:none}.row .b{flex:1}
-.tag{display:inline-block;padding:1px 8px;border-radius:9px;font-size:12px}
-.t-loss{background:#4a1a1a;color:var(--neg)}.t-low{background:#4a3a10;color:var(--a)}.t-ok{background:#143a24;color:var(--pos)}.t-nocost{background:#333;color:#ccc}
-.warn{border-left:3px solid var(--a);padding:6px 10px;margin:6px 0;background:#1a1608;border-radius:0 8px 8px 0}
-.warn.error{border-color:var(--neg);background:#1d0e0e}.warn.info{border-color:#5a8;background:#0e1a14}
-.lossc{border:1px solid #4a1a1a;border-radius:10px;padding:10px;margin:8px 0;background:#150d0d}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;padding:16px;overflow:auto;z-index:9}
-.modal.on{display:flex}.modal .in{background:var(--card);border:1px solid var(--line);border-radius:12px;max-width:1000px;width:100%;padding:16px}
-.chat{height:320px;overflow-y:auto;background:#0e0e0e;border:1px solid var(--line);border-radius:10px;padding:10px}
-.m{margin:6px 0;padding:8px 10px;border-radius:10px;max-width:90%;white-space:pre-wrap}.m.u{background:#2a2410;margin-left:auto}.m.a{background:#1c1c1c}
-.demo{background:#2a2410;border:1px solid var(--a);padding:8px 12px;border-radius:9px;margin-bottom:12px}
-.chk{display:flex;gap:8px;align-items:flex-start;margin:10px 0}.chk input{margin-top:3px}
-footer{text-align:center;color:var(--mu);font-size:12px;padding:18px}
-@media(max-width:600px){.row .n{width:110px}.row .v{width:90px}main{padding:8px}}
-@media print{header,.tabs,button,footer,#up{display:none}body{background:#fff;color:#000}.card{border-color:#ccc;background:#fff}}
+tr.cl:hover{background:rgba(255,160,40,.08);cursor:pointer}
+.bar{height:10px;border-radius:6px;background:linear-gradient(90deg,var(--a),var(--a2));min-width:3px}
+.row{display:flex;align-items:center;gap:12px;margin:9px 0;font-size:13px}.row .n{width:210px;flex:none}.row .v{width:130px;text-align:right;flex:none;font-variant-numeric:tabular-nums}.row .b{flex:1;background:rgba(127,127,127,.12);border-radius:6px}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:700}
+.t-loss{background:rgba(255,107,107,.16);color:var(--neg)}.t-low{background:rgba(255,185,56,.18);color:var(--a)}.t-ok{background:rgba(61,220,151,.15);color:var(--pos)}.t-nocost{background:rgba(127,127,127,.2);color:var(--mu)}
+.warn{border-left:3px solid var(--a);padding:9px 13px;margin:8px 0;background:rgba(255,185,56,.07);border-radius:0 10px 10px 0}
+.warn.error{border-color:var(--neg);background:rgba(255,107,107,.08)}.warn.info{border-color:var(--pos);background:rgba(61,220,151,.07)}
+.lossc{border:1px solid rgba(255,107,107,.3);border-radius:14px;padding:13px;margin:10px 0;background:rgba(255,107,107,.06)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;padding:20px;overflow:auto;z-index:9}
+.modal.on{display:flex}.modal .in{background:var(--bg);border:1px solid var(--line);border-radius:20px;max-width:1040px;width:100%;padding:22px;box-shadow:var(--sh)}
+.chat{height:340px;overflow-y:auto;background:var(--inp);border:1px solid var(--line);border-radius:14px;padding:12px}
+.m{margin:8px 0;padding:10px 13px;border-radius:14px;max-width:88%;white-space:pre-wrap}.m.u{background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink);margin-left:auto}.m.a{background:var(--card);border:1px solid var(--line)}
+.demo{background:rgba(255,185,56,.12);border:1px solid var(--a);padding:10px 14px;border-radius:12px;margin-bottom:14px}
+.chk{display:flex;gap:10px;align-items:flex-start;margin:14px 0}.chk input{margin-top:3px;accent-color:var(--a)}
+footer{text-align:center;color:var(--mu);font-size:12px;padding:26px 16px}
+code{background:var(--card);padding:2px 6px;border-radius:6px;font-size:12px;word-break:break-all}
+@media(max-width:640px){.row{flex-wrap:wrap}.row .n{width:100%}.row .v{width:100px}main{padding:12px 10px}.card{padding:15px}.kpi b{font-size:24px}header{padding:10px 12px}}
+@media print{header,.tabs,button,footer,#up,.hero{display:none}body{background:#fff;color:#000}.card,.kpi{border-color:#ccc;background:#fff;box-shadow:none}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">Профит селлера</div>
+  <div class="logo"><span class="lg">₽</span>Профит селлера</div>
   <div>
+    <button class="sec" id="bTheme" title="Светлая / тёмная тема">◐</button>
     <button class="sec" id="bDemo">Демо</button>
     <button class="sec" id="bPolicy">Политика</button>
     <button class="sec" id="bDel">Удалить мои данные</button>
   </div>
 </header>
 <main>
+<section class="hero"><h1>На каких артикулах вы <span>реально зарабатываете</span></h1><p>Загрузите отчёты WB и Ozon и таблицу себестоимости: покажем прибыль по каждому артикулу, найдём убыточные позиции и объясним, почему они в минусе.</p></section>
 <div class="card" id="up">
   <h2>Загрузите отчёты</h2>
   <p class="mu">Нужны отчёты самих площадок (не банковская выписка) и таблица себестоимости. Подключение к кабинету не требуется.</p>
@@ -96,6 +115,7 @@ footer{text-align:center;color:var(--mu);font-size:12px;padding:18px}
 <div class="modal" id="mod"><div class="in"><div style="text-align:right"><button class="sec" onclick="closeM()">Закрыть</button></div><div id="modC"></div></div></div>
 
 <script>
+try{document.documentElement.dataset.theme=localStorage.getItem('theme')||'dark'}catch(e){}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nf=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0});
@@ -237,17 +257,18 @@ function how(el){el.innerHTML='<div class="card"><h2>Как считали</h2>'
 
 const POLICY=`<h2>Политика конфиденциальности</h2>
 <p class="mu">Черновик. Заполните данные в [квадратных скобках] и проверьте у юриста до публикации.</p>
-<h3>1. Оператор</h3><p>[Захаров Николай Андреевич], [физическое лицо], контакты: [kolaneskazu566@gmail.com]. Сайт: [домен].</p>
+<h3>1. Оператор</h3><p>Захаров Николай Андреевич, физическое лицо, контакты: kolaneskazu566@gmail.com. Сайт: [домен].</p>
 <h3>2. Какие данные обрабатываются</h3><p>Случайный идентификатор браузера (хранится в localStorage вашего устройства); содержимое загруженных файлов, нужное для расчёта: артикулы, наименования товаров, номера заказов/отправлений, даты и суммы операций, ваша таблица себестоимости; выбранные настройки; суммы выплат, которые вы вводите вручную. Остальные колонки файлов (в том числе возможные данные покупателей) не сохраняются. Содержимое переписки в чате не сохраняется на сервере.</p>
 <h3>3. Цели</h3><p>Расчёт прибыли по артикулам, поиск убыточных позиций, ориентировочный расчёт налогов, ответы чат-помощника, формирование PDF.</p>
 <h3>4. Кому передаются данные</h3><p>Хостинг: [название хостинга, Москва, РФ]. Для чат-помощника в GigaChat (ПАО «Сбербанк») передаются агрегированные итоги и список артикулов с суммами, а также ваш вопрос. Исходные файлы не передаются. Иным лицам данные не передаются, кроме случаев, предусмотренных законом.</p>
 <h3>5. Где и как долго хранятся</h3><p>Данные хранятся на сервере в Российской Федерации в течение [30] дней с последнего обращения, затем удаляются автоматически. Вы можете удалить их сразу кнопкой «Удалить мои данные». Копии базы хранятся в зашифрованном виде не дольше [7] дней.</p>
 <h3>6. Меры защиты</h3><p>Передача по HTTPS, доступ к серверу ограничен, резервные копии шифруются. Абсолютную защиту от утечек гарантировать невозможно.</p>
-<h3>7. Ваши права</h3><p>Вы можете запросить сведения об обработке, исправление или удаление данных, отозвать согласие. Для запроса по идентификатору: ваш идентификатор <code id="myUid"></code>; напишите на [e-mail].</p>
+<h3>7. Ваши права</h3><p>Вы можете запросить сведения об обработке, исправление или удаление данных, отозвать согласие. Для запроса по идентификатору: ваш идентификатор <code id="myUid"></code>; напишите на kolaneskazu566@gmail.com.</p>
 <h3>8. Чего сервис не делает</h3><p>Не подключается к вашему кабинету на площадках, не хранит ключи доступа, не даёт налоговых или юридических консультаций; расчёты ориентировочные. Не загружайте данные третьих лиц без их согласия.</p>`;
 function pol(e){e&&e.preventDefault();$('#modC').innerHTML=POLICY;$('#myUid').textContent=UID;$('#mod').classList.add('on')}
 ['bPolicy','lnkPol','lnkPol2'].forEach(i=>$('#'+i).onclick=pol);
 document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
+$('#bTheme').onclick=()=>{const t=document.documentElement.dataset.theme=='light'?'dark':'light';document.documentElement.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}};
 (async()=>{try{const r=await api('/api/analysis');const a=await r.json();if(!a.empty)show(a)}catch(e){}})();
 </script>
 </body>
