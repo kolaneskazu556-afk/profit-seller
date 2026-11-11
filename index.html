@@ -14,6 +14,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bgi),var(--bg);background-attachment:fixed;color:var(--tx);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--a);text-decoration:none}a:hover{text-decoration:underline}
 header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 20px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.header-nav { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; } /* ДОБАВЛЕНО */
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.2px}
 .lg{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink);font-size:18px;box-shadow:0 6px 16px rgba(255,122,26,.35)}
 main{max-width:1180px;margin:0 auto;padding:22px 16px 10px}
@@ -62,14 +63,19 @@ tr.cl:hover{background:rgba(255,160,40,.08);cursor:pointer}
 .chk{display:flex;gap:10px;align-items:flex-start;margin:14px 0}.chk input{margin-top:3px;accent-color:var(--a)}
 footer{text-align:center;color:var(--mu);font-size:12px;padding:26px 16px}
 code{background:var(--card);padding:2px 6px;border-radius:6px;font-size:12px;word-break:break-all}
-@media(max-width:640px){.row{flex-wrap:wrap}.row .n{width:100%}.row .v{width:100px}main{padding:12px 10px}.card{padding:15px}.kpi b{font-size:24px}header{padding:10px 12px}}
+@media(max-width:640px){
+  .row{flex-wrap:wrap}.row .n{width:100%}.row .v{width:100px}main{padding:12px 10px}.card{padding:15px}.kpi b{font-size:24px}
+  header{padding:10px; justify-content: center;} /* Центрируем шапку */
+  .header-nav { justify-content: center; width: 100%; } /* Кнопки на всю ширину и в центр */
+  header button, .btn { padding: 8px 12px; font-size: 12px; } /* Уменьшаем кнопки */
+}
 @media print{header,.tabs,button,footer,#up,.hero{display:none}body{background:#fff;color:#000}.card,.kpi{border-color:#ccc;background:#fff;box-shadow:none}}
 </style>
 </head>
 <body>
 <header>
   <div class="logo"><span class="lg">₽</span>Профит селлера</div>
-  <div>
+  <div class="header-nav">
     <button class="sec" id="bTheme" title="Светлая / тёмная тема">◐</button>
     <button class="sec" id="bDemo">Демо</button>
     <button class="sec" id="bPolicy">Политика</button>
