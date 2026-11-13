@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Профит селлера — прибыль по артикулам WB и Ozon</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb938'/%3E%3Cstop offset='1' stop-color='%23ff7a1a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M24 50V15h14a10 10 0 0 1 0 20H17M17 43h22' fill='none' stroke='%231a1100' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{--bg:#07080b;--card:rgba(255,255,255,.045);--line:rgba(255,255,255,.10);--tx:#f2f3f5;--mu:#8d93a1;--a:#ffb938;--a2:#ff7a1a;--neg:#ff6b6b;--pos:#3ddc97;--inp:#0c0e13;--th:#14171e;--sh:0 12px 34px rgba(0,0,0,.4);--ink:#1a1100;
 --bgi:radial-gradient(900px 520px at 88% -8%,rgba(255,140,30,.20),transparent 60%),radial-gradient(700px 420px at -8% 6%,rgba(255,190,60,.10),transparent 60%)}
@@ -14,7 +15,7 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bgi),var(--bg);background-attachment:fixed;color:var(--tx);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--a);text-decoration:none}a:hover{text-decoration:underline}
 header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 20px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.header-nav { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; } /* ДОБАВЛЕНО */
+.header-nav { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.2px}
 .lg{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink);font-size:18px;box-shadow:0 6px 16px rgba(255,122,26,.35)}
 main{max-width:1180px;margin:0 auto;padding:22px 16px 10px}
@@ -31,7 +32,10 @@ button.sec:hover:not(:disabled),.btn.sec:hover{border-color:var(--a);color:var(-
 button:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
 input,select{background:var(--inp);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;max-width:100%;outline:0;transition:border-color .12s}
 input:focus,select:focus{border-color:var(--a)}
-input[type=file]{width:100%;padding:9px;border-style:dashed}
+input[type=file]{width:100%;padding:10px;border-style:dashed;border-width:2px;border-radius:12px;cursor:pointer;color:var(--mu);transition:border-color .12s,background .12s}
+input[type=file]:hover{border-color:var(--a);background:rgba(255,160,40,.06)}
+input[type=file]::file-selector-button{margin-right:14px;padding:9px 18px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--a2));color:var(--ink);font:inherit;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(255,122,26,.28);transition:transform .12s,box-shadow .12s}
+input[type=file]::file-selector-button:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(255,122,26,.35)}
 label{display:block;margin:12px 0 5px;font-size:12px;color:var(--mu);font-weight:600}
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh)}
@@ -65,9 +69,9 @@ footer{text-align:center;color:var(--mu);font-size:12px;padding:26px 16px}
 code{background:var(--card);padding:2px 6px;border-radius:6px;font-size:12px;word-break:break-all}
 @media(max-width:640px){
   .row{flex-wrap:wrap}.row .n{width:100%}.row .v{width:100px}main{padding:12px 10px}.card{padding:15px}.kpi b{font-size:24px}
-  header{padding:10px; justify-content: center;} /* Центрируем шапку */
-  .header-nav { justify-content: center; width: 100%; } /* Кнопки на всю ширину и в центр */
-  header button, .btn { padding: 8px 12px; font-size: 12px; } /* Уменьшаем кнопки */
+  header{padding:10px; justify-content: center;}
+  .header-nav { justify-content: center; width: 100%; }
+  header button, .btn { padding: 8px 12px; font-size: 12px; }
 }
 @media print{header,.tabs,button,footer,#up,.hero{display:none}body{background:#fff;color:#000}.card,.kpi{border-color:#ccc;background:#fff;box-shadow:none}}
 </style>
@@ -262,11 +266,11 @@ function chat(el){
 function how(el){el.innerHTML='<div class="card"><h2>Как считали</h2>'+A.methodology.map(m=>`<p>• ${esc(m)}</p>`).join('')+'</div>'}
 
 const POLICY=`<h2>Политика конфиденциальности</h2>
-<p class="mu">Черновик. Заполните данные в [квадратных скобках] и проверьте у юриста до публикации.</p>
-<h3>1. Оператор</h3><p>Захаров Николай Андреевич, физическое лицо, контакты: kolaneskazu566@gmail.com. Сайт: [домен].</p>
+<p class="mu">Черновик. Проверьте текст у юриста до публичного запуска.</p>
+<h3>1. Оператор</h3><p>Захаров Николай Андреевич, физическое лицо, контакты: kolaneskazu566@gmail.com. Сайт: seller34profit.ru.</p>
 <h3>2. Какие данные обрабатываются</h3><p>Случайный идентификатор браузера (хранится в localStorage вашего устройства); содержимое загруженных файлов, нужное для расчёта: артикулы, наименования товаров, номера заказов/отправлений, даты и суммы операций, ваша таблица себестоимости; выбранные настройки; суммы выплат, которые вы вводите вручную. Остальные колонки файлов (в том числе возможные данные покупателей) не сохраняются. Содержимое переписки в чате не сохраняется на сервере.</p>
 <h3>3. Цели</h3><p>Расчёт прибыли по артикулам, поиск убыточных позиций, ориентировочный расчёт налогов, ответы чат-помощника, формирование PDF.</p>
-<h3>4. Кому передаются данные</h3><p>Хостинг: [название хостинга, Москва, РФ]. Для чат-помощника в GigaChat (ПАО «Сбербанк») передаются агрегированные итоги и список артикулов с суммами, а также ваш вопрос. Исходные файлы не передаются. Иным лицам данные не передаются, кроме случаев, предусмотренных законом.</p>
+<h3>4. Кому передаются данные</h3><p>Хостинг: Рег.ру, Российская Федерация. Для чат-помощника в GigaChat (ПАО «Сбербанк») передаются агрегированные итоги и список артикулов с суммами, а также ваш вопрос. Исходные файлы не передаются. Иным лицам данные не передаются, кроме случаев, предусмотренных законом.</p>
 <h3>5. Где и как долго хранятся</h3><p>Данные хранятся на сервере в Российской Федерации в течение [30] дней с последнего обращения, затем удаляются автоматически. Вы можете удалить их сразу кнопкой «Удалить мои данные». Копии базы хранятся в зашифрованном виде не дольше [7] дней.</p>
 <h3>6. Меры защиты</h3><p>Передача по HTTPS, доступ к серверу ограничен, резервные копии шифруются. Абсолютную защиту от утечек гарантировать невозможно.</p>
 <h3>7. Ваши права</h3><p>Вы можете запросить сведения об обработке, исправление или удаление данных, отозвать согласие. Для запроса по идентификатору: ваш идентификатор <code id="myUid"></code>; напишите на kolaneskazu566@gmail.com.</p>
